@@ -45,4 +45,4 @@ function eqColor(magnitude) {
     }
 };
 
-//deleted and rebuilt config.js
+//insert comment lines, comment out remaining framework
