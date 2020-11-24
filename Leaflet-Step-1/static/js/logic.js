@@ -44,3 +44,5 @@ function eqColor(magnitude) {
         return 'lightgreen'
     }
 };
+
+//deleted and rebuilt config.js
