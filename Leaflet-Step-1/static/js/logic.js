@@ -116,13 +116,39 @@ function createMap() {
         //plate tectonics for optional
     };
 
-    var mymap = L.map('mymap', {
+    var myMap = L.map('map', {
         center: [40, -99],
         zoom: 4.3,
         layers: [streetMap, earthquakes]
     });
 
-    L.control.layers(baseLayers, overlays).addTo(mymap);
+    // .addTo to affix the layers to the map
+    L.control.layers(baseLayers, overlays).addTo(myMap);
 
-    
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Add a legend to the map with layer control for the layers
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    var legend = L.control({ position: 'bottomright' });
+
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+            eqMagnitude = [0, 1, 2, 3, 4, 5],
+            labels = [];
+
+        div.innerHTML += "<h4 style='margin:4px'>Magnitude</h4>"
+
+        for (var i = 0; i < eqMagnitude.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + Color(eqMagnitude[i] + 1) + '"></i> ' +
+                eqMagnitude[i] + (eqMagnitude[i + 1] ? '&ndash;' + eqMagnitude[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+    };
+    // .addTo to add the layer to the map
+    legend.addTo(myMap);
 }
