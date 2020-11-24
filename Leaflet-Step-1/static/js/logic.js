@@ -1,6 +1,6 @@
 var eqGeoJSON = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 
-API_quakes
+
 var earthquakes = new L.LayerGroup();
 
 d3.json(eqGeoJSON, function (geoJson) {
