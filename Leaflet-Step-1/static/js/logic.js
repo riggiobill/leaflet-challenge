@@ -57,3 +57,72 @@ function eqColor(magnitude) {
     }
 };
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Standard function to build the map using Mapbox API calls, then adds in the 
+// previous layers and data.
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+function createMap() {
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Map data
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    var highContrastMap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.high-contrast',
+        accessToken: API_KEY
+    });
+
+    var streetMap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: API_KEY
+    });
+
+    var darkMap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.dark',
+        accessToken: API_KEY
+    });
+
+
+    var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.satellite',
+        accessToken: API_KEY
+    });
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // Layer data
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    var baseLayers = {
+        "High Contrast": highContrastMap,
+        "Street": streetMap,
+        "Dark": darkMap,
+        "Satellite": satellite
+    };
+
+    var overlays = {
+        "Earthquakes": earthquakes
+        //plate tectonics for optional
+    };
+
+    var mymap = L.map('mymap', {
+        center: [40, -99],
+        zoom: 4.3,
+        layers: [streetMap, earthquakes]
+    });
+
+    L.control.layers(baseLayers, overlays).addTo(mymap);
+
+    
+}
