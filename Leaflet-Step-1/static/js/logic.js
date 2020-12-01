@@ -160,12 +160,19 @@ function createMap() {
 
     legend.onAdd = function (map) {
 
+        ///////////////////////////////////////////////////
+        //declare a div that will be accessed by style.css 
+        //and the following code to make a legend
+        ///////////////////////////////////////////////////
+
         var div = L.DomUtil.create('div', 'info legend'),
             eqMagnitude = [0, 1, 2, 3, 4, 5],
             labels = [];
 
+        // Internal html calling to create the Magniture header
         div.innerHTML += "<h4 style='margin:4px'>Magnitude</h4>"
 
+        // Creates the legend text info and assigns style color info to it
         for (var i = 0; i < eqMagnitude.length; i++) {
             div.innerHTML +=
                 '<i style="background:' + eqColor(eqMagnitude[i] + 1) + '"></i> ' +
@@ -174,6 +181,7 @@ function createMap() {
 
         return div;
     };
-    // .addTo to add the layer to the map
+    
+    // .addTo to add the layer to the map and call the .onAdd function listed above
     legend.addTo(myMap);
 }
